@@ -17,7 +17,7 @@ const router = express.Router();
  */
 router.route("/")
      .get((req, res)=>{
-          res.sendFile("/home/joeittab/projects/net/express-server/public/index.html");
+          res.sendFile("/home/joeittab/projects/net/express-server/public/admin-login.html");
      })
      .post((req,res)=>{
           const { username, password } = req.body; 
@@ -49,7 +49,7 @@ router.get("/metrics", (req,res)=>{
 });
 
 router.get("/dashboard", (req,res)=>{
-     res.sendFile("/home/joeittab/projects/net/express-server/public/dashboard.html");
+     res.sendFile("/home/joeittab/projects/net/express-server/public/admin-dashboard.html");
 });
 
 module.exports = router;
