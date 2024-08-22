@@ -55,7 +55,16 @@ function validate(req){
      return issuedToken.username;
 }
 
+/**
+ * Gets the total issued token
+ * @returns the total issued tokens
+ */
+function getIssued(){
+     return issued.length;
+}
+
 module.exports = {
      issue,
-     validate
+     validate,
+     getIssued
 }

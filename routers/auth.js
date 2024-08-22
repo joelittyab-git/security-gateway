@@ -2,10 +2,8 @@ const express = require("express");
 const userService = require("../services/users");
 const authService = require("../services/authentication");
 const router = express.Router();
+const path = require("path");
 
-router.get("/", (req,res)=>{
-     res.send("This is an endpoint...");
-});
 
 /**
  * Basic authentication routes
@@ -18,7 +16,7 @@ router.get("/", (req,res)=>{
  */
 router.route("/")
      .get((req,res)=>{
-          res.send("This is an endpoint...");
+          res.send("Ok");
      })
      //authenitcation endpoint
      .post((req,res)=>{

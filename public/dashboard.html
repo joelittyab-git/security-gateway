@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard Metrics</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .dashboard-container {
+            background: #1e1e1e;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+        }
+
+        .dashboard-title {
+            margin-bottom: 40px;
+            font-size: 36px;
+            font-weight: 700;
+            color: #90caf9;
+            letter-spacing: 1px;
+        }
+
+        .metric-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-bottom: 30px;
+        }
+
+        .metric {
+            background: #282828;
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 200px;
+            margin: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .metric:hover {
+            transform: scale(1.05);
+        }
+
+        .metric-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #f48fb1;
+        }
+
+        .metric-value {
+            font-size: 40px;
+            font-weight: 700;
+        }
+
+        .last-updated {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #9e9e9e;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <div class="dashboard-title">Admin Dashboard Metrics</div>
+
+        <div class="metric-container">
+            <div class="metric">
+                <div class="metric-title">Registered Users</div>
+                <div id="registered-users" class="metric-value">0</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-title">Issued Tokens</div>
+                <div id="issued-tokens" class="metric-value">0</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-title">Active Sessions</div>
+                <div id="active-sessions" class="metric-value">0</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-title">Total API Calls</div>
+                <div id="total-api-calls" class="metric-value">0</div>
+            </div>
+        </div>
+
+        <div class="last-updated" id="last-updated">Last Updated: Never</div>
+    </div>
+
+    <script>
+     document.addEventListener("DOMContentLoaded", function() {
+          // Fetch data from the backend API
+          fetch("/admin/metrics")
+              .then(response => {
+                  if (!response.ok) {
+                      throw new Error('Network response was not ok');
+                  }
+                  return response.json();
+              })
+              .then(data => {
+                  // Extract data from the response
+                  const registeredUsers = data.registeredUsers;
+                  const issuedTokens = data.issuedTokens;
+                  const totalApiCalls = data.totalApiCalls;
+      
+                  // Prepare the metrics object with fetched data
+                  const metrics = {
+                      registeredUsers: registeredUsers,
+                      issuedTokens: issuedTokens,
+                      activeSessions: 245, // Example static value, replace as needed
+                      totalApiCalls: totalApiCalls,
+                      lastUpdated: new Date().toLocaleString()
+                  };
+      
+                  // Update the metric values on the page
+                  document.getElementById("registered-users").innerText = metrics.registeredUsers;
+                  document.getElementById("issued-tokens").innerText = metrics.issuedTokens;
+                  document.getElementById("active-sessions").innerText = metrics.activeSessions;
+                  document.getElementById("total-api-calls").innerText = metrics.totalApiCalls;
+                  document.getElementById("last-updated").innerText = "Last Updated: " + metrics.lastUpdated;
+              })
+              .catch(error => {
+                  console.error('There was a problem with the fetch operation:', error);
+              });
+      });
+    </script>
+
+</body>
+</html>

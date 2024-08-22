@@ -63,10 +63,18 @@ function getUser(username){
      return user.find((us)=>us.username==username);
 }
 
+/**
+ * Gets the total registered users
+ * @returns the total registered users
+ */
+function getRegistered(){
+     return user.length;
+}
 
 //x--x--x
 module.exports = {
      regsiterUser,
      authUser,
-     getUser
+     getUser,
+     getRegistered
 }
